@@ -89,7 +89,7 @@ def process_triangle(triangles, vertices, min_bounds, scale, grid_size):
     return local_voxel_grid
 
 
-def voxelization(vertices, triangles, grid_size=256):
+def voxelization(vertices, triangles, grid_size=512):
     min_bounds = vertices.min(axis=0)
     max_bounds = vertices.max(axis=0)
     scale = (grid_size - 1) / (max_bounds - min_bounds)
@@ -113,7 +113,7 @@ def create_mesh_from_voxels(voxel_grid):
     return vertices, faces
 
 
-def save_model(vertices, faces, filepath, scale_factor=1.9):
+def save_model(vertices, faces, filepath, scale_factor=1.7):
     scaled_vertices = vertices.copy()
     scaled_vertices[:, 0] *= scale_factor
     lines = [f"v {v[0]} {v[1]} {v[2]}\n" for v in scaled_vertices]
@@ -133,4 +133,4 @@ if __name__ == '__main__':
 
     vertices, faces = create_mesh_from_voxels(voxel_grid)
 
-    save_model(vertices, faces, 'results/combined_teapot.obj')
+    save_model(vertices, faces, 'results/combined_teapot_bool.obj')
